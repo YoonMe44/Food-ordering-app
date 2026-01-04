@@ -45,13 +45,12 @@ export const ProductsPreview = () => {
         {products.length > 0 &&
           products.map((product, index) => {
             return (
-              <div className="w-full p-3">
-                <ProductPreviewCard
-                  key={index}
-                  product={product}
-                  onAddProduct={onAddProduct}
-                />
-              </div>
+            <div key={index} className="w-full p-3">
+              <ProductPreviewCard
+                product={product}
+                onAddProduct={onAddProduct}
+              />
+            </div>
             );
           })}
       </Carousel>
