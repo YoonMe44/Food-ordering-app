@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductPreviewCard } from "./elements/ProductPreviewCard";
+import { ProductPreviewCard } from "./ProductPreviewCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch } from "react-redux";
@@ -42,18 +42,16 @@ export const ProductsPreview = () => {
   return (
     <div className="container mx-auto pb-4 w-2/3 text-white bg-black">
       <Carousel responsive={responsive}>
-        {products.length > 0 &&
-          products.map((product, index) => {
-            return (
-            <div key={index} className="w-full p-3">
-              <ProductPreviewCard
-                product={product}
-                onAddProduct={onAddProduct}
-              />
-            </div>
-            );
-          })}
-      </Carousel>
+            {
+                products.length > 0 && products.map((product, index) => {
+                    return (
+                        <div className="w-full p-3">
+                            <ProductPreviewCard key={index} product={product} onAddProduct={onAddProduct} />
+                        </div>
+                    )
+                })
+            }
+            </Carousel>
     </div>
   );
 };
