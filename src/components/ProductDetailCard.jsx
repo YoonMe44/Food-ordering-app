@@ -1,9 +1,9 @@
 const ProductDetailCard = ({ product }) => {
   return (
-    <div className="p-4 roundes-lg bg-slate-50">
-        <div className="flex items-center justify-between">
-            <h2 className="text-5xl">{product.name}</h2>
-            <p className="text-3xl">
+    <div className="p-4 m-4 roundes-lg bg-slate-50">
+        <div className="flex flex-col items-center justify-between">
+            <h2 className="text-3xl">{product.name}</h2>
+            <p className="text-2xl">
                 {product.description}
             </p>
             <div className="flex items-center justify-between">
