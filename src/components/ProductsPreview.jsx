@@ -32,7 +32,13 @@ export const ProductsPreview = () => {
   useEffect(() => {
     fetch("http://localhost:8080/api/products")
       .then((response) => response.json())
-      .then((data) => setProducts(data?.data))
+     .then((data) => {
+  if (Array.isArray(data?.data)) {
+    setProducts(data.data);
+  } else {
+    setProducts([]);
+  }
+})
       .catch((e) => console.log(e));
   }, []);
 
@@ -43,7 +49,7 @@ export const ProductsPreview = () => {
     <div className="container mx-auto pb-4 w-2/3 text-white bg-black">
       <Carousel responsive={responsive}>
             {
-                products.length > 0 && products.map((product, index) => {
+                products?.length > 0 && products.map((product, index) => {
                     return (
                         <div className="w-full p-3">
                             <ProductPreviewCard key={index} product={product} onAddProduct={onAddProduct} />
