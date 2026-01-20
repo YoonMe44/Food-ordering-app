@@ -5,6 +5,7 @@ import { cartProducts } from "../../stores/cart/cartSlice";
 import { ReactComponent as ArrowRightSvg } from "../../assets/icons/arrow-right-long-svgrepo-com.svg";
 import useTabSwitch from "../../hooks/useTabSwitch";
 import { AddressForm } from "../../components/AddressForm";
+import { ProductsSummary } from "../../components/ProductsSummary";
 
 const Cart  = () =>{
     const cart = useSelector(cartProducts);
@@ -19,13 +20,13 @@ const Cart  = () =>{
         )
     }
     return(
-        <div className="bg-white h-screen text-black mx-auto mt-2 border border-gray-200 p-4 md:w-2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
+        <div className="bg-white h-full text-black mx-auto mt-2 border border-gray-200 p-4 md:w-2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
             <Tabs list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab} />
             <div className={`tabs ${currentTab !== 'Summary' ? 'hidden' : ''}`}>
-                <AddressForm />
+                <ProductsSummary/>
             </div>
             <div className={`tabs ${currentTab !== 'Delivery' ? 'hidden' : ''}`}>
-                Delivery Form
+                <AddressForm onTabSwitch={handleTabSwitch} />
             </div>
             <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
                 Payment Form
