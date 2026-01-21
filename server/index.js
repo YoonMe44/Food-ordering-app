@@ -100,6 +100,7 @@ app.listen(PORT, () => {
 app.use('/api/', productRouter);
 
 app.post('/create-payment-intent', async (req, res) => {
+  console.log("BODY", req.body);
     const { amount } = req.body;
     try {
       const { orderItems, shippingAddress, userId } = req.body;
