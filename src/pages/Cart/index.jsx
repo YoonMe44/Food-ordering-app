@@ -6,6 +6,7 @@ import { ReactComponent as ArrowRightSvg } from "../../assets/icons/arrow-right-
 import useTabSwitch from "../../hooks/useTabSwitch";
 import { AddressForm } from "../../components/AddressForm";
 import { ProductsSummary } from "../../components/ProductsSummary";
+import { StripeWrapper } from "../../components/PaymentForm";
 
 const Cart  = () =>{
     const cart = useSelector(cartProducts);
@@ -29,7 +30,7 @@ const Cart  = () =>{
                 <AddressForm onTabSwitch={handleTabSwitch} />
             </div>
             <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
-                Payment Form
+                <StripeWrapper />
             </div>
         </div>
     )
