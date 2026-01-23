@@ -1,12 +1,12 @@
 import { CardElement, useElements, useStripe, Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart,cartProducts } from "../stores/cart/cartSlice";
+import { clearCart, cartProducts } from "../stores/cart/cartSlice";
 import { getAddress, clearAddress } from "../stores/userInfo/addressSlice";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { set } from "react-hook-form";
-
+import Button from "./elements/Button";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 export const StripeWrapper = () => {
@@ -32,7 +32,7 @@ export const PaymentForm = () => {
         setLoading(true);
         setError(null);
 
-        if (!stripe || !elements || !cart?.products.length || !address) {
+        if (!stripe || !elements || !cart?.length || !address) {
             return;
         }
 
@@ -45,7 +45,7 @@ export const PaymentForm = () => {
                 },
                 body: JSON.stringify({
                     paymentMethodType: "card",
-                    orderItems: cart.products,
+                    orderItems: cart,
                     userId: '',
                     shippingAddress: address,
                 })
@@ -62,17 +62,28 @@ export const PaymentForm = () => {
             }else if(paymentIntent.status === "succeeded") {
                 dispatch(clearCart());
                 dispatch(clearAddress());
-                navigate("/");
+                navigate("/payment-success");
             }
         } catch (err) {
             console.log(err);
-        }  
+        }
+        setLoading(false);  
     } 
     return (
-        <form className="md:-2/3 md:mx-auto px-2 pt-1" id="payment-form">
+        <form className="md:-2/3 md:mx-auto px-2 pt-1" id="payment-form" onSubmit={handleSubmit}>
             <label htmlFor="card-element" className="pt-4 text-2xl md:text-center">Please enter your card details</label>
             <div className="my-4">
                 <CardElement id="card-element" />
+            </div>
+            <div className="flex justify-center p-2">
+                <Button type="submit" disabled={loading}>
+                    {
+                        loading ?
+                        "Loading..."
+                        :
+                        "Pay Now"
+                    }
+                </Button>
             </div>
         </form>
     );
