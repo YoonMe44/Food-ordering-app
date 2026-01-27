@@ -17,7 +17,7 @@ export const addressSlice = createSlice({
     },
 });
 
-export const getAddress = state => state.address;
+export const getAddress = state => state.address.address;
 
 export const { setAddress, clearAddress } = addressSlice.actions
 

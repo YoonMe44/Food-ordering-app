@@ -17,7 +17,7 @@ export const StripeWrapper = () => {
   );
 }
 
-export const PaymentForm = () => {
+const PaymentForm = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
@@ -29,10 +29,12 @@ export const PaymentForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("SUBMIT CLICKED");
         setLoading(true);
         setError(null);
 
         if (!stripe || !elements || !cart?.length || !address) {
+            setLoading(false);
             return;
         }
 
@@ -47,9 +49,10 @@ export const PaymentForm = () => {
                     paymentMethodType: "card",
                     orderItems: cart,
                     userId: '',
-                    shippingAddress: address,
+                    shippingAddress: address
                 })
             }).then(r => r.json());
+
             const {error: stripeError, paymentIntent} = await stripe.confirmCardPayment(
                 clientSecret, {
                     payment_method: {
@@ -57,11 +60,15 @@ export const PaymentForm = () => {
                     }
                 }
             )
+            console.log("CLIENT SECRET 👉", clientSecret);
             if (backEndError || stripeError) {
-                setError(backEndError || stripeError);
+                setError(backEndError?.message || "Backend error");
+                setLoading(false);
+                return;
+                // setError(backEndError || stripeError);
             }else if(paymentIntent.status === "succeeded") {
-                dispatch(clearCart());
                 dispatch(clearAddress());
+                dispatch(clearCart());
                 navigate("/payment-success");
             }
         } catch (err) {
