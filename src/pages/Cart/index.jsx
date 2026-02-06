@@ -25,6 +25,12 @@ const Cart  = () =>{
             <Tabs list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab} />
             <div className={`tabs ${currentTab !== 'Summary' ? 'hidden' : ''}`}>
                 <ProductsSummary/>
+                <div className="flex justify-end p-2">
+                    <Button variant="dark" className="flex items-center" type="submit" onClick={() => handleTabSwitch('Delivery')}>
+                        <span className="mr-1">Continue</span>
+                        <ArrowRightSvg className="ml-2 w-4 h-4" />
+                    </Button>
+                </div>
             </div>
             <div className={`tabs ${currentTab !== 'Delivery' ? 'hidden' : ''}`}>
                 <AddressForm onTabSwitch={handleTabSwitch} />
