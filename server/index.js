@@ -7,6 +7,8 @@ const db = require('./db');
 
 const app = express();
 const productRouter = require('./routes/productRouter');
+const userRouter = require('./routes/userRouter');
+
 // const { init } = require("./models/productModel");
 const Order = require("./models/orderModel");
 
@@ -98,6 +100,8 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/', productRouter);
+app.use('/api/', userRouter);
+
 
 app.post('/create-payment-intent', async (req, res) => {
   console.log("BODY", req.body);
