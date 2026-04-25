@@ -12,6 +12,6 @@ In the project directory, you can run:
 ### `node seed.js` for data create
 
 
-Redux Toolkit 
+Redux Toolkit
 
 ### `npm install @reduxjs/toolkit react-redux`
